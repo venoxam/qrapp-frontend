@@ -11,10 +11,12 @@ const BASE_URL = import.meta.env.VITE_API_URL ?? "/api";
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
     const body = await res.json().catch(() => ({ error: "Unknown error" }));
+    const b = body as { error?: string; code?: string; balance?: number };
     const err: ApiError = {
-      message: (body as { error?: string }).error ?? "Request failed",
-      code: (body as { code?: string }).code,
+      message: b.error ?? "Request failed",
+      code: b.code,
       statusCode: res.status,
+      balance: b.balance,
     };
     throw err;
   }

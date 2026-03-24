@@ -6,7 +6,6 @@ import { ActionButton } from '../components/ActionButton';
 import { QRScanner } from '../components/QRScanner';
 import { ResultScreen } from '../components/ResultScreen';
 import { usePay } from '../hooks/usePay';
-import { useBalance } from '../hooks/useBalance';
 import { digitsToAmount } from '../utils/amount';
 
 export function Pay() {
@@ -15,7 +14,6 @@ export function Pay() {
   const [showScanner, setShowScanner] = useState(false);
 
   const payMutation = usePay();
-  const balanceQuery = useBalance(scannedId);
 
   const amount = digitsToAmount(digits);
   const canSubmit = amount > 0;
@@ -41,7 +39,7 @@ export function Pay() {
     ? payMutation.error.code === 'ACCOUNT_NOT_FOUND'
       ? 'Account not found. Please scan a valid QR code.'
       : payMutation.error.code === 'INSUFFICIENT_BALANCE'
-        ? `Insufficient balance.${balanceQuery.data !== undefined ? ` Current balance: €${balanceQuery.data.balance.toFixed(2)}` : ''}`
+        ? `Insufficient balance.${payMutation.error.balance !== undefined ? ` Current balance: €${payMutation.error.balance.toFixed(2)}` : ''}`
         : payMutation.error.message
     : null;
 

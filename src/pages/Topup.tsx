@@ -75,8 +75,8 @@ export function Topup() {
 
 // A TESTER, ça evite de devoir remonter le composant à chaque fois et donc que ça redemande l'autorisation
 /*
-import { useState } from "react";
-import { QRScanner } from "./QRScanner";
+import { useState } from 'react';
+import { QRScanner2 } from '../components/QRScanner2';
 
 export function MyPage() {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
@@ -87,7 +87,7 @@ export function MyPage() {
         Open scanner
       </button>
 
-      <QRScanner
+      <QRScanner2
         isOpen={isScannerOpen}
         onClose={() => setIsScannerOpen(false)}
         onScan={(result) => {
